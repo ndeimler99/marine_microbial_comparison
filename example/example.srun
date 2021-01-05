@@ -1,0 +1,15 @@
+#!/bin/bash
+#SBATCH --partition=bgmp
+#SBATCH --job-name=dada_scaling
+#SBATCH --out=full_test.out
+#SBATCH --err=full_test.err
+#SBATCH --time=0-20:00:00
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=1
+#SBATCH --cpus-per-task=20
+#SBATCH --account=bgmp
+
+conda activate R_Environment
+
+./pipeline.sh -m ./metadata.txt -d ./datasets -o ./full_output
+
