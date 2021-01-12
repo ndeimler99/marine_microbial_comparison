@@ -1,9 +1,5 @@
 #!/bin/bash
 
-#This is the script that will be called to start the program
-
-#it will take the options of where the data sets are stored, a file containing list of file names/corresponding to sample names and any other important information, as well as an output directory
-
 while getopts d:m:o: flag
 do
     case "${flag}" in
@@ -13,9 +9,29 @@ do
     esac
 done
 
-#echo "dataset=$dataset_dir";
-#echo "metdata: $metadata";
-#echo "output: $output_dir";
+
+#######################################################################################################################################################
+#HYPERPARAMETERS BELOW
+
+#filtering (must be integer values)
+minimum_sum_ASV=100
+min_sample_save=1500
+minimum_sample_count=1
+
+#normalization technique can either be "DESeq2", "rarefaction", or "RPM".  rare_faction_lib_size only needs to be adjusted if choosing rarefaction normalization technique
+normalization_technique="DESeq2"
+rarefaction_lib_size=10000
+
+#anosim (must be less than 1, greater than 0)
+min_percentage=0.01
+high_cumulative=0.8
+
+#differential abundance
+#Shrinkage method can either be "normal", "ashr", "apeglm"
+#Transform can either be "rld", "vsd", or "vsd.fast"
+shrinkage_method="ashr"
+transform="rld"
+#######################################################################################################################################################
 
 current_dir=$(pwd)
 
@@ -37,7 +53,6 @@ output_dir=$output_dir"/"
 mkdir $output_dir
 
 #make output directory for quality plots
-
 mkdir $output_dir/quality_plots
 
 #pass dataset and output to dada script
@@ -46,10 +61,6 @@ conda activate R_Environment
 ###THE BELOW SCRIPT CALLS WILL HAVE TO CHANGE DEPENDING ON HOW FINAL PACKAGE IS SENT/LAYED OUT
 ./R_scripts/dada.R $dataset_dir $output_dir
 
-
-minimum_sum_ASV=100
-min_sample_save=1500
-minimum_sample_count=1
 
 #THE BELOW SCRIPT IS REQUIRED AND SHOULD NOT BE REMOVED
 #TAKES RAW ASV COUNTS, FILTERS THEM, AND SPLITS ASV COUNT DATA BY COMMUNITY THROUGH THE USE OF METADATA FILE
@@ -61,11 +72,8 @@ minimum_sample_count=1
 
 
 #Normalization
-#normalization technique can either be DESeq2, rarefaction, or RPM
 mkdir $output_dir/normalization_results
-normalization_technique="DESeq2"
 #rarefaction_lib_size must only be modified if normalization_technique="rarefaction"
-rarefaction_lib_size=10000
 ./R_scripts/normalization.R $output_dir $normalization_technique $rarefaction_lib_size
 
 #Phyloseq Object Creation
@@ -94,21 +102,22 @@ mkdir $output_dir/anosim_simper/
 mkdir $output_dir/anosim_simper/community_one/
 mkdir $output_dir/anosim_simper/community_two/
 mkdir $output_dir/adonis/
-min_percentage=0.01
-high_cumulative=0.8
 ./R_scripts/anosim_simper_adonis.R $output_dir $low_percentage $cum_sum
 
-#Shrinkage method can either be "normal", "ashr", "apeglm"
-#Transform can either be "rld"
-shrinkage_method="ashr"
-transform="rld"
+#differential_abundance
 mkdir $output_dir/differential_expression/
 ./R_scripts/differential_expression.R $output_dir $shrinkage_method $transform
 
+#taxonomic summary
 mkdir $output_dir/taxonomic_summary
 ./R_scripts/identification_summary.R $output_dir
 
+#major summary statistics
 ./R_scripts/summary.R $output_dir
 
+#phylogenetic analysis
 mkdir $output_dir/phylogenetics
-#./R_scripts/phangorn_final.R $output_dir/phylogenetics
+mkdir $output_dir/phylogenetics/community_one
+mkdir $output_dir/phylogenetics/community_two
+mkdir $output_dir/phylogenetics/community_merged
+#./R_scripts/phy_tree_1.7.21.R $output_dir
