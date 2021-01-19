@@ -1482,7 +1482,7 @@ summary {
 <style type="text/css">
 
 #TOC {
-  margin: 25px 0px 100px 0px;
+  margin: 25px 0px 0px 0px;
 }
 @media (max-width: 768px) {
 #TOC {
