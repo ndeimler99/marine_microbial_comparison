@@ -1429,7 +1429,7 @@ summary {
   background: white;
   border: 1px solid #ddd;
   border-radius: 4px;
-  max-width: 500px;
+  margin-left: auto;
 }
 
 .tabset-dropdown > .nav-tabs > li.active:before {
