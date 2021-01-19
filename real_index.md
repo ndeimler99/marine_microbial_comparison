@@ -1,3 +1,5 @@
+<!DOCTYPE html>
+
 <html>
 
 <head>
@@ -1616,9 +1618,9 @@ install.R $cran</code></pre>
 <h4>Package Versions</h4>
 <table>
 <colgroup>
-<col width="33%">
-<col width="33%">
-<col width="33%">
+<col width="33%"></col>
+<col width="33%"></col>
+<col width="33%"></col>
 </colgroup>
 <thead>
 <tr class="header">
@@ -1761,9 +1763,9 @@ install.R $cran</code></pre>
 <p><em>ASV Filtering</em></p>
 <table>
 <colgroup>
-<col width="33%">
-<col width="33%">
-<col width="33%">
+<col width="33%"></col>
+<col width="33%"></col>
+<col width="33%"></col>
 </colgroup>
 <thead>
 <tr class="header">
@@ -1794,9 +1796,9 @@ install.R $cran</code></pre>
 <p><em>ASV Normalization</em></p>
 <table>
 <colgroup>
-<col width="33%">
-<col width="33%">
-<col width="33%">
+<col width="33%"></col>
+<col width="33%"></col>
+<col width="33%"></col>
 </colgroup>
 <thead>
 <tr class="header">
@@ -1822,9 +1824,9 @@ install.R $cran</code></pre>
 <p><em>ANOSIM</em></p>
 <table>
 <colgroup>
-<col width="33%">
-<col width="33%">
-<col width="33%">
+<col width="33%"></col>
+<col width="33%"></col>
+<col width="33%"></col>
 </colgroup>
 <thead>
 <tr class="header">
@@ -1850,9 +1852,9 @@ install.R $cran</code></pre>
 <p><em>Differential Abundance</em></p>
 <table>
 <colgroup>
-<col width="33%">
-<col width="33%">
-<col width="33%">
+<col width="33%"></col>
+<col width="33%"></col>
+<col width="33%"></col>
 </colgroup>
 <thead>
 <tr class="header">
@@ -1879,8 +1881,8 @@ install.R $cran</code></pre>
 <h4>Directories Created</h4>
 <table>
 <colgroup>
-<col width="50%">
-<col width="50%">
+<col width="50%"></col>
+<col width="50%"></col>
 </colgroup>
 <thead>
 <tr class="header">
@@ -2156,9 +2158,9 @@ SRR12541965 941861  854424    803462    732739    397988    131250
 <p>Adonis is another permutational anova-like test measuring analysis of variance between populations through the vegan R package. The adonis function requires a bray-curtis dissimilarity matrix and grouping factor to compare communities. It returns an adonis object containing a model like matrix containing the significance values of each comparison. (Anderson, 2001; Oksanen et al., 2009). In the adonis subdirectory are six files as follows.</p>
 <table>
 <colgroup>
-<col width="33%">
-<col width="33%">
-<col width="33%">
+<col width="33%"></col>
+<col width="33%"></col>
+<col width="33%"></col>
 </colgroup>
 <thead>
 <tr class="header">
@@ -2298,15 +2300,15 @@ Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&
 <hr />
 <table style="width:100%;">
 <colgroup>
-<col width="11%">
-<col width="11%">
-<col width="11%">
-<col width="11%">
-<col width="11%">
-<col width="11%">
-<col width="11%">
-<col width="11%">
-<col width="11%">
+<col width="11%"></col>
+<col width="11%"></col>
+<col width="11%"></col>
+<col width="11%"></col>
+<col width="11%"></col>
+<col width="11%"></col>
+<col width="11%"></col>
+<col width="11%"></col>
+<col width="11%"></col>
 </colgroup>
 <thead>
 <tr class="header">
