@@ -1392,7 +1392,7 @@ h6 {
 <style type="text/css">
 .main-container {
   max-width: 940px;
-  margin-left: 500px;
+  margin-left: auto;
   margin-right: auto;
 }
 code {
@@ -1429,7 +1429,6 @@ summary {
   background: white;
   border: 1px solid #ddd;
   border-radius: 4px;
-  margin-left: auto;
 }
 
 .tabset-dropdown > .nav-tabs > li.active:before {
