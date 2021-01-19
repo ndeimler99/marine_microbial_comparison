@@ -1,1 +1,1 @@
-A pipeline for the consistent comparison of two microbial communities
+A pipeline for the consistent and unbiased comparison of microbial communities
