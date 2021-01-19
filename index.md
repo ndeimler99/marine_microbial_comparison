@@ -1499,7 +1499,7 @@ summary {
 }
 
 .toc-content {
-  padding-left: 100px;
+  padding-left: 50px;
   padding-right: 40px;
 }
 
