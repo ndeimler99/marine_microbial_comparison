@@ -1487,7 +1487,7 @@ summary {
 @media (max-width: 768px) {
 #TOC {
   position: left;
-  width: 80%;
+  width: 100%;
 }
 }
 
