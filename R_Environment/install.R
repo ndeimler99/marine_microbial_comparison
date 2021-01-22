@@ -1,6 +1,7 @@
 #!/usr/bin/env Rscript
 
-cran <- "https://ftp.osuosl.org/pub/cran/"
+args = commandArgs(trailingOnly=TRUE)
+cran <- args[1]
 
 install.packages("versions", repos=cran, quiet=TRUE)
 library(versions)
@@ -31,6 +32,7 @@ BiocManager::install("phyloseq", update=FALSE, quiet=TRUE)
 BiocManager::install("edgeR", update=FALSE, quiet=TRUE)
 BiocManager::install("msa", update=FALSE, quiet=TRUE)
 BiocManager::install("microbiome", update=FALSE, quiet=TRUE)
+BiocManager::install("apeglm", update=FALSE, quiet=TRUE)
 
 
 #load silva databases
