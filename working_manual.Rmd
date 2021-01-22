@@ -1,11 +1,13 @@
 ---
-title: "Microbial Community Comparison Pipeline" 
-subtitle: "https://github.com/ndeimler99/microbial_community_comparison"
+title: "Microbial Community Comparison Pipeline"
 author: "Nathaniel Deimler, Cameron Watson, Ryan Decourcy"
+subtitle: https://github.com/ndeimler99/microbial_community_comparison
 output:
+  html_document:
+    toc: yes
+    df_print: paged
   pdf_document:
-    toc: true
-
+    toc: yes
 ---
 
 ```{r, echo = FALSE}
@@ -96,6 +98,7 @@ The installation script installs specific versions of all the software necessary
 | edgeR	| N/A*	|	https://bioconductor.org/packages/release/bioc/html/edgeR.html |
 | msa	| N/A*	|	https://bioconductor.org/packages/release/bioc/vignettes/msa/inst/doc/msa.pdf |
 | microbiome	| N/A* |	https://microbiome.github.io/tutorials/ |
+| apeglm  | N/A*  | https://bioconductor.org/packages/release/bioc/html/apeglm.html |
 
 
 \* These package versions are dependent on the BiocManager version. 
@@ -149,6 +152,11 @@ Users are free to change any parameter that they feel is necessary in any of the
 | rarefaction_lib_size | If rarefaction normalization is chosen, how large is the desired library size | 10000 |
 
 ***
+
+*Stacked Bar Plots*
+
+| Variable Name | Description | Default |
+| number_of_clades | The number of taxonmic groupings you want to appear in the stacked bar plots, excluding other | 10 |
 
 *ANOSIM*
 
@@ -384,8 +392,11 @@ Each of the five alpha diversity metrics described above are added into the meta
 
 Rarefaction, similar to the chao1 index, is a method of determining species richness through sampling.  The rarecurve function in the vegan package can be used to construct rarefaction curve plots; many argue that rarefaction is unnecessary in the field of microbial ecology due to the advances of next-generation sequencing, but they can show basic, low level comparisons between the two microbial communities. The rarecurve function randomly samples the filtered count data prior to normalization without replacement and checks if it is a new species, or if the species has been found before: the more new species, the larger the slope.  However, when sampling provides fewer new species, if it all, the slope begins to flatten and approach an asymptote.  If this is observed in the plot, one can be confident their sampling methodology was sufficient in accurately representing the community present.  This portion of the pipeline will output a rarefaction plot for every sample in both communities to allow for the comparison of species richness across the communities (Oksanen et al., 2009; Simberloff, 1978). This plot can be found in the specified output directory, “rarefaction_curve.png”.
 
-# Pairwise Comparison of Datasets
+### Stacked Bar Plots
 
+Stacked bar plots are an easy low-level visualization of both the count numbers per sample as well as the distribution of microbial groups across the samples between two communities.  The bar_plots.R script returns a series of stacked bar plots based on the hyperparameter “number_of_clades” with a default of ten.  This script takes the previously created phyloseq objects and using the function tax_glom condenses the ASVs to a given taxonomic level.  For example, we will be referencing “Family.”  This script will take the top ten most abundant families across all the samples (if there are not ten families identified, all will be included) and create a stacked bar plot of raw counts and a percent abundance stacked bar plot.  In addition to the ten families, any other families will be included in an “other” section.  Altering the hyperparameter (“number_of_clades”) allows the user to alter the number of families that appear in the stacked bar plot.  This process is repeated for every major taxonomic level including Kingdom, Phylum, Class, Order, Family, and Genus.  Plots created are returned within the subdirectory “/stacked_bar_plots/”. Bar plots for both communities as well as each community individually will be returned.  In addition, both normalized and non-normalized plots will be produced.  Each plot is appropriately named within that subdirectory to avoid confusion.
+
+# Pairwise Comparison of Datasets
 
 #### Bray Curtis Dissimilarity Matrices
 
