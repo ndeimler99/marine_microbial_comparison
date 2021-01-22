@@ -22,6 +22,9 @@ minimum_sample_count=1
 normalization_technique="DESeq2"
 rarefaction_lib_size=10000
 
+#bar plots
+number_of_clades=10
+
 #anosim (must be less than 1, greater than 0)
 min_percentage=0.01
 high_cumulative=0.8
@@ -29,7 +32,7 @@ high_cumulative=0.8
 #differential abundance
 #Shrinkage method can either be "normal", "ashr", "apeglm"
 #Transform can either be "rld", "vsd", or "vsd.fast"
-shrinkage_method="ashr"
+shrinkage_method="normal"
 transform="rld"
 #######################################################################################################################################################
 
@@ -81,8 +84,7 @@ mkdir $output_dir/normalization_results
 
 mkdir $output_dir/stacked_bar_plots/
 #stacked bar plots
-./R_scripts/bar_plots.R $output_dir
-#NOT COMMENTED
+./R_scripts/bar_plots.R $output_dir $number_of_clades
 
 #heatmaps
 mkdir $output_dir/heat_maps/
@@ -120,4 +122,4 @@ mkdir $output_dir/phylogenetics
 mkdir $output_dir/phylogenetics/community_one
 mkdir $output_dir/phylogenetics/community_two
 mkdir $output_dir/phylogenetics/community_merged
-#./R_scripts/phy_tree_1.7.21.R $output_dir
+./R_scripts/phy_tree_1.7.21.R $output_dir

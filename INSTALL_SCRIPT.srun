@@ -13,7 +13,8 @@
 conda env create --file ./R_Environment/r_environment.yml 
 conda activate R_Environment
 
-./R_Environment/install.R
+cran="https://ftp.osuosl.org/pub/cran/"
+./R_Environment/install.R $cran
 
 
 
