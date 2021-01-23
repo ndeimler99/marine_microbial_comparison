@@ -11,9 +11,10 @@ output:
 ---
 
 ```{r, echo = FALSE}
-#theme: readable
-  #  toc_depth: 4
-   # toc_float: true
+##### READ THIS ####
+# After making knitted html the .io page,
+# remove doctype and
+# </col>
 ```
 
 ***
