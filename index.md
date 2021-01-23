@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-
 <html>
 
 <head>
@@ -1502,7 +1500,7 @@ summary {
 
 .toc-content {
   padding-left: 30px;
-  padding-right: 40px;
+  padding-right: 0px;
 }
 
 div.main-container {
@@ -1618,9 +1616,9 @@ install.R $cran</code></pre>
 <h4>Package Versions</h4>
 <table>
 <colgroup>
-<col width="33%"></col>
-<col width="33%"></col>
-<col width="33%"></col>
+<col width="33%">
+<col width="33%">
+<col width="33%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -1768,9 +1766,9 @@ install.R $cran</code></pre>
 <p><em>ASV Filtering</em></p>
 <table>
 <colgroup>
-<col width="33%"></col>
-<col width="33%"></col>
-<col width="33%"></col>
+<col width="33%">
+<col width="33%">
+<col width="33%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -1801,9 +1799,9 @@ install.R $cran</code></pre>
 <p><em>ASV Normalization</em></p>
 <table>
 <colgroup>
-<col width="33%"></col>
-<col width="33%"></col>
-<col width="33%"></col>
+<col width="33%">
+<col width="33%">
+<col width="33%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -1829,9 +1827,9 @@ install.R $cran</code></pre>
 <p><em>Stacked Bar Plots</em></p>
 <table>
 <colgroup>
-<col width="33%"></col>
-<col width="33%"></col>
-<col width="33%"></col>
+<col width="33%">
+<col width="33%">
+<col width="33%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -1851,9 +1849,9 @@ install.R $cran</code></pre>
 <p><em>ANOSIM</em></p>
 <table>
 <colgroup>
-<col width="33%"></col>
-<col width="33%"></col>
-<col width="33%"></col>
+<col width="33%">
+<col width="33%">
+<col width="33%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -1879,9 +1877,9 @@ install.R $cran</code></pre>
 <p><em>Differential Abundance</em></p>
 <table>
 <colgroup>
-<col width="33%"></col>
-<col width="33%"></col>
-<col width="33%"></col>
+<col width="33%">
+<col width="33%">
+<col width="33%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -1908,8 +1906,8 @@ install.R $cran</code></pre>
 <h4>Directories Created</h4>
 <table>
 <colgroup>
-<col width="50%"></col>
-<col width="50%"></col>
+<col width="50%">
+<col width="50%">
 </colgroup>
 <thead>
 <tr class="header">
