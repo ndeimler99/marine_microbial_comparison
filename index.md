@@ -1482,11 +1482,11 @@ summary {
 <style type="text/css">
 
 #TOC {
-  margin: 25px 0px 0px 0px;
+  margin: 25px 0px 20px 0px;
 }
 @media (max-width: 768px) {
 #TOC {
-  position: left;
+  position: relative;
   width: 100%;
 }
 }
@@ -1499,8 +1499,8 @@ summary {
 }
 
 .toc-content {
-  padding-left: 50px;
-  padding-right: 40px;
+  padding-left: 30px;
+  padding-right: 0px;
 }
 
 div.main-container {
@@ -1568,7 +1568,7 @@ div.tocify {
 
 
 <h1 class="title toc-ignore">Microbial Community Comparison Pipeline</h1>
-<h3 class="subtitle"><a href="https://github.com/ndeimler99/microbial_community_comparison" class="uri">https://github.com/ndeimler99/microbial_community_comparison</a></h3>
+<h3 class="subtitle">Find the software here: <a href="https://github.com/ndeimler99/microbial_community_comparison" class="uri">https://github.com/ndeimler99/microbial_community_comparison</a></h3>
 <h4 class="author">Nathaniel Deimler, Cameron Watson, Ryan Decourcy</h4>
 
 </div>
@@ -1591,7 +1591,7 @@ div.tocify {
 <h1>Installation and Set-up</h1>
 <div id="download-from-github" class="section level4">
 <h4>Download from GitHub</h4>
-<p>Clone the microbial_comparison_pipeline repository to the computer that you are working on. A directory with this name should now be present in your directory hierarchy, and all scripts needed to run the pipeline will be available.</p>
+<p>Clone the microbial_community_comparison repository (<a href="https://github.com/ndeimler99/microbial_community_comparison" class="uri">https://github.com/ndeimler99/microbial_community_comparison</a>) to the computer that you are working on. A directory with this name should now be present in your directory hierarchy, and all scripts needed to run the pipeline will be available.</p>
 </div>
 <div id="the-conda-environment" class="section level4">
 <h4>The Conda Environment</h4>
@@ -1713,6 +1713,11 @@ install.R $cran</code></pre>
 <td align="center">N/A*</td>
 <td align="center"><a href="https://microbiome.github.io/tutorials/" class="uri">https://microbiome.github.io/tutorials/</a></td>
 </tr>
+<tr class="even">
+<td align="center">apeglm</td>
+<td align="center">N/A*</td>
+<td align="center"><a href="https://bioconductor.org/packages/release/bioc/html/apeglm.html" class="uri">https://bioconductor.org/packages/release/bioc/html/apeglm.html</a></td>
+</tr>
 </tbody>
 </table>
 <p>* These package versions are dependent on the BiocManager version.</p>
@@ -1819,6 +1824,28 @@ install.R $cran</code></pre>
 </tbody>
 </table>
 <hr />
+<p><em>Stacked Bar Plots</em></p>
+<table>
+<colgroup>
+<col width="33%">
+<col width="33%">
+<col width="33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">Variable Name</th>
+<th align="center">Description</th>
+<th align="center">Default</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">number_of_clades</td>
+<td align="center">The number of taxonmic groupings you want to appear in the stacked bar plots, excluding other</td>
+<td align="center">10</td>
+</tr>
+</tbody>
+</table>
 <p><em>ANOSIM</em></p>
 <table>
 <colgroup>
@@ -2086,6 +2113,10 @@ SRR12541965 941861  854424    803462    732739    397988    131250
 <h4>Rarefaction</h4>
 <p>Rarefaction, similar to the chao1 index, is a method of determining species richness through sampling. The rarecurve function in the vegan package can be used to construct rarefaction curve plots; many argue that rarefaction is unnecessary in the field of microbial ecology due to the advances of next-generation sequencing, but they can show basic, low level comparisons between the two microbial communities. The rarecurve function randomly samples the filtered count data prior to normalization without replacement and checks if it is a new species, or if the species has been found before: the more new species, the larger the slope. However, when sampling provides fewer new species, if it all, the slope begins to flatten and approach an asymptote. If this is observed in the plot, one can be confident their sampling methodology was sufficient in accurately representing the community present. This portion of the pipeline will output a rarefaction plot for every sample in both communities to allow for the comparison of species richness across the communities (Oksanen et al., 2009; Simberloff, 1978). This plot can be found in the specified output directory, “rarefaction_curve.png”.</p>
 </div>
+<div id="stacked-bar-plots" class="section level4">
+<h4>Stacked Bar Plots</h4>
+<p>Stacked bar plots are an easy low-level visualization of both the count numbers per sample as well as the distribution of microbial groups across the samples between two communities. The bar_plots.R script returns a series of stacked bar plots based on the hyperparameter “number_of_clades” with a default of ten. This script takes the previously created phyloseq objects and using the function tax_glom condenses the ASVs to a given taxonomic level. For example, we will be referencing “Family.” This script will take the top ten most abundant families across all the samples (if there are not ten families identified, all will be included) and create a stacked bar plot of raw counts and a percent abundance stacked bar plot. In addition to the ten families, any other families will be included in an “other” section. Altering the hyperparameter (“number_of_clades”) allows the user to alter the number of families that appear in the stacked bar plot. This process is repeated for every major taxonomic level including Kingdom, Phylum, Class, Order, Family, and Genus. Plots created are returned within the subdirectory “/stacked_bar_plots/”. Bar plots for both communities as well as each community individually will be returned. In addition, both normalized and non-normalized plots will be produced. Each plot is appropriately named within that subdirectory to avoid confusion.</p>
+</div>
 </div>
 <div id="pairwise-comparison-of-datasets" class="section level1">
 <h1>Pairwise Comparison of Datasets</h1>
@@ -2149,57 +2180,59 @@ SRR12541965 941861  854424    803462    732739    397988    131250
 </table>
 <p>It is important to note the cumulative sum will always add up to 1.00, or all of the difference observed between the communities. However, if two communities are very similar there may be certain ASVs that only contribute slightly to the difference observed and may not be of interest. Therefore, two hyperparameters can be set to help filter the results of the simper data. The first, min_percentage, indicates the minimum percent contribution an ASV must exceed for it be returned to the user. The second, high_cumulative, indicates the value at which the cumulative sum is reached. For example, all SIMPER tables are organized with an increasing cumulative sum, with the largest contribution at the top of the table. As the table progresses the cumulative sum contribution will decrease, but the cumulative sum will continue to increase. The user can set a value that will discard any ASV’s that fall above a certain cumulative sum. For example, if this value is set at 80, all ASV’s that contribute to 80% of the difference observed will be included in the analysis. (Clarke, 1993; Oksanen et al., 2009)</p>
 <p>The major downfall of the SIMPER test is that it does not provide information on the statistical significance of the difference between each ASV in the simper table between the two communities. To account for this a kruskal wallis t-test with a Benjamini Hochberg correction is performed on each ASV in the simper table after filtration (Kruskal &amp; Wallis, 1952).</p>
-<p>Two major files are returned, also in the anosim_simper subdirectory, that contain the filtered simper results of both communities normalized data as well as presence absence transformed data. These files are named “simper_summary_filtered_ASVs_both_communities.txt” and “simper_summary_filtered_ASVs_presence_absence_both_communities.txt”, respectively. In addition to the two main files, the intercommunity samples are compared among themselves. The resulting simper tables are filtered and returned in appropriately named files containing the names of both samples being compared. These intercommunity comparisons can be found in the “anosim_simper” subdirectory, in the directory “/community_one/” or “/community_two/.” Since we are no longer comparing two communities with multiple biological replicates, ava and avb, the average abundances are not included as they are simply the count values.</p>
+<p>Two major files are returned, also in the anosim_simper subdirectory, that contain the filtered simper results of both communities normalized data as well as presence absence transformed data. These files are named</p>
+<pre><code>&quot;simper_summary_filtered_ASVs_both_communities.txt&quot; 
+
+and 
+
+&quot;simper_summary_filtered_ASVs_presence_absence_both_communities.txt&quot;</code></pre>
+<p>respectively. In addition to the two main files, the intercommunity samples are compared among themselves. The resulting simper tables are filtered and returned in appropriately named files containing the names of both samples being compared. These intercommunity comparisons can be found in the “anosim_simper” subdirectory, in the directory “/community_one/” or “/community_two/.” Since we are no longer comparing two communities with multiple biological replicates, ava and avb, the average abundances are not included as they are simply the count values.</p>
 </div>
 <div id="adonis" class="section level4">
 <h4>ADONIS</h4>
 <p>Adonis is another permutational anova-like test measuring analysis of variance between populations through the vegan R package. The adonis function requires a bray-curtis dissimilarity matrix and grouping factor to compare communities. It returns an adonis object containing a model like matrix containing the significance values of each comparison. (Anderson, 2001; Oksanen et al., 2009). In the adonis subdirectory are six files as follows.</p>
 <table>
-<colgroup>
-<col width="33%">
-<col width="33%">
-<col width="33%">
-</colgroup>
 <thead>
 <tr class="header">
-<th align="center">File Name</th>
-<th align="center">BC Matrix</th>
-<th align="center">Grouping</th>
+<th>File Name</th>
+<th>BC Matrix</th>
+<th></th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td align="center">Community_merge.txt</td>
-<td align="center">Community_merge_norm</td>
-<td align="center">Sample group</td>
+<td>Community_merge.txt</td>
+<td>Community_merge_norm</td>
+<td></td>
 </tr>
 <tr class="even">
-<td align="center">Community_merge_presence_Absence.txt</td>
-<td align="center">Community_merge_presence_absence</td>
-<td align="center">Sample group</td>
+<td>Community_merge_presence_Absence.txt</td>
+<td>Community_merge_presence_absence</td>
+<td></td>
 </tr>
 <tr class="odd">
-<td align="center">Community_one.txt</td>
-<td align="center">Community_one_norm</td>
-<td align="center">Individual Samples</td>
+<td>Community_one.txt</td>
+<td>Community_one_norm</td>
+<td></td>
 </tr>
 <tr class="even">
-<td align="center">Community_one_presence_Absence.txt</td>
-<td align="center">Community_one_norm_presence_absence</td>
-<td align="center">Individual Samples</td>
+<td>Community_one_presence_Absence.txt</td>
+<td>Community_one_norm_presence_absence</td>
+<td></td>
 </tr>
 <tr class="odd">
-<td align="center">Community_two.txt</td>
-<td align="center">Community_two_norm</td>
-<td align="center">Individual Samples</td>
+<td>Community_two.txt</td>
+<td>Community_two_norm</td>
+<td></td>
 </tr>
 <tr class="even">
-<td align="center">Community_two_presence_Absence.txt</td>
-<td align="center">Community_two_norm_presence_absence</td>
-<td align="center">Individual Samples</td>
+<td>Community_two_presence_Absence.txt</td>
+<td>Community_two_norm_presence_absence</td>
+<td></td>
 </tr>
 </tbody>
 </table>
+<p>Note: the first two rows are sample groups, the subsequent four files are individual samples</p>
 <hr />
 <p>An example output is provided below. The column, Pr(&gt;F) contains the significance value determining if our data, when separated by the groups specified, is significantly different. In this case we can see we are comparing the normalized communities to each other with a very significant difference.</p>
 <pre><code>Call:
@@ -2296,18 +2329,7 @@ Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&
 <p>Taxonomic classifications are pulled from a taxonomic table showing the speciation by ASV. Only the ASVs present in the “merged” pool are selected, as they encompass ASVs from both communities. The table includes columns of classifications for each ASV of Domain, Kingdom, Phylum, Class, Order, Family, Genus and Species where possible, or an “NA” if that classification is not known.</p>
 <p>A final column (“Final”) is added to the table, with the most specific classification of that ASV available. For example:</p>
 <hr />
-<table style="width:100%;">
-<colgroup>
-<col width="11%">
-<col width="11%">
-<col width="11%">
-<col width="11%">
-<col width="11%">
-<col width="11%">
-<col width="11%">
-<col width="11%">
-<col width="11%">
-</colgroup>
+<table>
 <thead>
 <tr class="header">
 <th align="center">ASV</th>
@@ -2315,10 +2337,6 @@ Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&
 <th align="center">Phylum</th>
 <th align="center">Class</th>
 <th align="center">Order</th>
-<th align="center">Family</th>
-<th align="center">Genus</th>
-<th align="center">Species</th>
-<th align="center">Final</th>
 </tr>
 </thead>
 <tbody>
@@ -2328,6 +2346,20 @@ Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&
 <td align="center">Proteobacteria</td>
 <td align="center">Alpha-proteobacteria</td>
 <td align="center">Rhodobacterales</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr class="header">
+<th align="center">Family</th>
+<th align="center">Genus</th>
+<th align="center">Species</th>
+<th align="center">Final</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
 <td align="center">Rhodo-bacteraceae</td>
 <td align="center">Cognatiyoonia</td>
 <td align="center">NA</td>
