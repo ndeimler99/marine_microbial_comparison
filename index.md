@@ -1392,7 +1392,7 @@ h6 {
 <style type="text/css">
 .main-container {
   max-width: 940px;
-  margin-left: 50px;
+  margin-left: 500px;
   margin-right: auto;
 }
 code {
