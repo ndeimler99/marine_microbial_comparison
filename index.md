@@ -1499,8 +1499,8 @@ summary {
 }
 
 .toc-content {
-  padding-left: 0px;
-  padding-right: 30px;
+  padding-left: 80px;
+  padding-right: 0px;
 }
 
 div.main-container {
