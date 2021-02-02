@@ -13,8 +13,9 @@ output:
 ```{r, echo = FALSE}
 ##### READ THIS ####
 # After making knitted html the .io page,
-# remove doctype and
+# remove doctype html and
 # </col>
+#change .toc content css style left padding to 80 and right padding to 0
 ```
 
 ***
