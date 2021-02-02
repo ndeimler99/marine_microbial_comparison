@@ -1494,7 +1494,7 @@ summary {
 @media print {
 .toc-content {
   /* see https://github.com/w3c/csswg-drafts/issues/4434 */
-  float: right;
+  float: left;
 }
 }
 
